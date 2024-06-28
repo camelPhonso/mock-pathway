@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 
-import allRoutes from "./routes"
 import Dropdown from "./components/Dropdown"
 import "./App.css"
+import fetchRoutes from "./utils/fetchRoutes.js"
 
 function App() {
   const [routes, setRoutes] = useState(null)
@@ -10,7 +10,8 @@ function App() {
 
   useEffect(() => {
     const getEmploymentRoutes = async () => {
-      setRoutes(allRoutes)
+      const fetchedRoutes = await fetchRoutes()
+      setRoutes(fetchedRoutes)
     }
 
     getEmploymentRoutes()
@@ -24,13 +25,12 @@ function App() {
     <div className="App">
       <h1>I'm Running!!!</h1>
 
-      {routes && (
-        <Dropdown
-          options={routes}
-          keyName={"name"}
-          onChange={changeHandler}
-        />
-      )}
+      <Dropdown
+        options={routes ?? []}
+        keyName={"name"}
+        onChange={changeHandler}
+        isDisabled={!routes}
+      />
 
       <select disabled={searchParam === null}>
         <option>fh</option>

@@ -1,5 +1,5 @@
-export default function Dropdown({ options, keyName, onChange }) {
-  const changeHandler = (event) => {
+export default function Dropdown({ options, keyName, isDisabled, onChange }) {
+  const changeHandler = event => {
     const selectedOption = options.find(
       option => option[keyName] === event.target.value
     )
@@ -7,7 +7,10 @@ export default function Dropdown({ options, keyName, onChange }) {
   }
 
   return (
-    <select onChange={changeHandler}>
+    <select
+      onChange={changeHandler}
+      disabled={isDisabled}
+    >
       <option>Select one</option>
       {options.map(option => {
         return (
